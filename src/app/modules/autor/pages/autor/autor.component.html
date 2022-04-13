@@ -1,0 +1,85 @@
+<app-table-crud
+  [columns]="tableColumns"
+  [dataSource]="dataSource"
+  [title]="captionTable"
+  (eventEmitPage)="autoresGet($event)"
+  (eventEmitAction)="onAction($event)"></app-table-crud>
+
+<div class="modal fade" id="FormModal" #FormModal>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <form [formGroup]="entityForm" autocomplete="off" name="student">
+        <div class="modal-header">
+          <h4 class="modal-title">{{ action }} {{ captionTable }}</h4>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            (click)="clearField()"></button>
+        </div>
+        <div class="modal-body">
+          <div class="form-group">
+            <label>Nombre completo</label>
+            <input
+              type="text"
+              class="form-control"
+              required
+              name="nombreCompleto"
+              formControlName="nombreCompleto" />
+            <app-validate-fields-messages
+              *ngFor="let validation of autor_validation.nombreCompleto"
+              [message]="validation.message"
+              [showMessage]="validateField('nombreCompleto', validation)">
+            </app-validate-fields-messages>
+          </div>
+          <div class="form-group">
+            <label>Fecha nacimiento</label>
+            <input
+              type="date"
+              class="form-control"
+              name="fechaNacimiento"
+              formControlName="fechaNacimiento" />
+          </div>
+          <div class="form-group">
+            <label>Ciudad de procedencia</label>
+            <input
+              type="text"
+              class="form-control"
+              required
+              name="ciudadProcedencia"
+              formControlName="ciudadProcedencia" />
+          </div>
+          <div class="form-group">
+            <label>Email</label>
+            <input
+              type="email"
+              class="form-control"
+              required
+              name="email"
+              formControlName="email" />
+          </div>
+          <div class="form-group mt-2">
+            <app-validate-sumary-error
+              [error]="error"></app-validate-sumary-error>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button
+            type="button"
+            class="btn btn-secondary"
+            data-bs-dismiss="modal"
+            (click)="clearField()">
+            Cancelar
+          </button>
+          <button
+            *ngIf="action !== 'See'"
+            type="button"
+            class="btn btn-success"
+            (click)="onSave()">
+            {{ action }} Cambios
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

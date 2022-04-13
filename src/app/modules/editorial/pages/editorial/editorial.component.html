@@ -1,0 +1,108 @@
+
+<app-table-crud
+  [columns]="tableColumns"
+  [dataSource]="dataSource"
+  [title]="captionTable"
+  (eventEmitPage)="editorialesGet($event)"
+  (eventEmitAction)="onAction($event)"></app-table-crud>
+
+<div class="modal fade" id="FormModal" #FormModal>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <form [formGroup]="entityForm" autocomplete="off" name="student">
+        <div class="modal-header">
+          <h4 class="modal-title">{{ action }} {{ captionTable }}</h4>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            (click)="clearField()"></button>
+        </div>
+        <div class="modal-body">
+          <div class="form-group">
+            <label>Nombre</label>
+            <input
+              type="text"
+              class="form-control"
+              required
+              name="nombre"
+              formControlName="nombre" />
+            <app-validate-fields-messages
+              *ngFor="let validation of editorial_validation.nombre"
+              [message]="validation.message"
+              [showMessage]="validateField('nombre', validation)">
+            </app-validate-fields-messages>
+          </div>
+          <div class="form-group">
+            <label>Direccion</label>
+            <input
+              type="text"
+              class="form-control"
+              name="direccion"
+              formControlName="direccion" />
+            <app-validate-fields-messages
+              *ngFor="let validation of editorial_validation.direccion"
+              [message]="validation.message"
+              [showMessage]="validateField('direccion', validation)">
+            </app-validate-fields-messages>
+          </div>
+          <div class="form-group">
+            <label>Télefono</label>
+            <input
+              type="text"
+              class="form-control"
+              required
+              name="telefono"
+              formControlName="telefono" />
+            <app-validate-fields-messages
+              *ngFor="let validation of editorial_validation.telefono"
+              [message]="validation.message"
+              [showMessage]="validateField('telefono', validation)">
+            </app-validate-fields-messages>
+          </div>
+          <div class="form-group">
+            <label>Email</label>
+            <input
+              type="email"
+              class="form-control"
+              name="email"
+              formControlName="email" />
+          </div>
+          <div class="form-group">
+            <label>Maximo libros de la editorial</label>
+            <input
+              type="number"
+              class="form-control"
+              name="maximoLibros"
+              formControlName="maximoLibros" />
+            <app-validate-fields-messages
+              *ngFor="let validation of editorial_validation.maximoLibros"
+              [message]="validation.message"
+              [showMessage]="validateField('maximoLibros', validation)">
+            </app-validate-fields-messages>
+          </div>
+          <div class="form-group mt-2">
+            <app-validate-sumary-error
+              [error]="error"></app-validate-sumary-error>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button
+            type="button"
+            class="btn btn-secondary"
+            data-bs-dismiss="modal"
+            (click)="clearField()">
+            Cancelar
+          </button>
+          <button
+            *ngIf="action !== 'See'"
+            type="button"
+            class="btn btn-success"
+            (click)="onSave()">
+            {{ action }} Cambios
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
