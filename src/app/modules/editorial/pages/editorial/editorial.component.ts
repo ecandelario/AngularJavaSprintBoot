@@ -1,3 +1,4 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { errorResponse } from 'src/app/interfaces/response-interface';
@@ -182,13 +183,13 @@ export class EditorialComponent implements OnInit {
             Swal.fire('Transacción exitosa', response.nombre, 'success');
             this.onCloseForm();
         },
-        (error: errorResponse) => {
-          Swal.fire('Transacción no exitosa', error.message, 'error');
+        (error: HttpErrorResponse ) => {
+          Swal.fire('Transacción no exitosa', error.error.message, 'error');
           this.error = this.erroSvc.showerror(
-            true,
-            error.errors,
-            error.status,
-            error.message
+            false,
+            error.error.errors,
+            error.error.status,
+            error.error.message
           );
         }
       );
@@ -203,13 +204,13 @@ export class EditorialComponent implements OnInit {
             Swal.fire('Actualización exitosa', response.nombre, 'success');
             this.onCloseForm();
         },
-        (error: errorResponse) => {
-          Swal.fire('Transacción no exitosa', error.message, 'error');
+        (error: HttpErrorResponse ) => {
+          Swal.fire('Transacción no exitosa', error.error.message, 'error');
           this.error = this.erroSvc.showerror(
-            true,
-            error.errors,
-            error.status,
-            error.message
+            false,
+            error.error.errors,
+            error.error.status,
+            error.error.message
           );
         }
       );

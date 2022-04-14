@@ -189,13 +189,13 @@ export class LibroComponent implements OnInit {
             Swal.fire('Transacción exitosa', response.titulo, 'success');
             this.onCloseForm();
         },
-        (error: errorResponse) => {
-          Swal.fire('Transacción no exitosa', error.message, 'error');
+        (error: HttpErrorResponse ) => {
+          Swal.fire('Transacción no exitosa', error.error.message, 'error');
           this.error = this.erroSvc.showerror(
-            true,
-            error.errors,
-            error.status,
-            error.message
+            false,
+            error.error.errors,
+            error.error.status,
+            error.error.message
           );
         }
       );
@@ -210,13 +210,13 @@ export class LibroComponent implements OnInit {
             Swal.fire('Actualización exitosa', response.titulo, 'success');
             this.onCloseForm();
         },
-        (error: errorResponse) => {
-          Swal.fire('Transacción no exitosa', error.message, 'error');
+        (error: HttpErrorResponse ) => {
+          Swal.fire('Transacción no exitosa',error.error.message, 'error');
           this.error = this.erroSvc.showerror(
-            true,
-            error.errors,
-            error.status,
-            error.message
+            false,
+            error.error.errors,
+            error.error.status,
+            error.error.message
           );
         }
       );
